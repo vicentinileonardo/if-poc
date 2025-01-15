@@ -1,0 +1,51 @@
+name: cloud-metadata-demo
+description: demo
+tags: null
+initialize:
+  plugins:
+    cloud-metadata:
+      path: builtin
+      method: CSVLookup
+      config:
+        filepath: >-
+          https://raw.githubusercontent.com/Green-Software-Foundation/if-data/main/cloud-metdata-aws-instances.csv
+        query:
+          instance-class: cloud/instance-type
+        output:
+          - cpu-cores-utilized
+          - vcpus-allocated
+execution:
+  command: >-
+    /Users/leonardovicentini/.nvm/versions/node/v18.6.0/bin/node
+    /Users/leonardovicentini/.nvm/versions/node/v18.6.0/bin/if-run --manifest
+    manifests/cloud-metadata-demo.yaml --output outputs/out
+  environment:
+    if-version: 1.0.0
+    os: macOS
+    os-version: 13.3.1
+    node-version: 18.6.0
+    date-time: 2025-01-15T17:12:15.289Z (UTC)
+    dependencies:
+      - jest@29.4.3
+      - leaflet@1.9.3
+      - rejson@0.1.0
+  status: success
+tree:
+  children:
+    child:
+      pipeline:
+        compute:
+          - cloud-metadata
+      inputs:
+        - timestamp: 2023-07-06T00:00
+          cloud/vendor: aws
+          cloud/instance-type: m5n.large
+          duration: 100
+          cpu/utilization: 10
+      outputs:
+        - timestamp: 2023-07-06T00:00
+          cloud/vendor: aws
+          cloud/instance-type: m5n.large
+          duration: 100
+          cpu/utilization: 10
+          vcpus-allocated: 2

@@ -1,0 +1,56 @@
+name: basic-demo
+description: null
+tags: null
+initialize:
+  plugins:
+    double-a-value:
+      path: builtin
+      method: Coefficient
+      config:
+        input-parameter: cpu/utilization
+        coefficient: 2
+        output-parameter: cpu-utilization-doubled
+execution:
+  command: >-
+    /Users/leonardovicentini/.nvm/versions/node/v18.6.0/bin/node
+    /Users/leonardovicentini/.nvm/versions/node/v18.6.0/bin/if-run --manifest
+    first.yaml --output out.yaml
+  environment:
+    if-version: 1.0.0
+    os: macOS
+    os-version: 13.3.1
+    node-version: 18.6.0
+    date-time: 2025-01-15T15:07:13.272Z (UTC)
+    dependencies:
+      - jest@29.4.3
+      - leaflet@1.9.3
+      - rejson@0.1.0
+  status: success
+tree:
+  children:
+    child-0:
+      defaults:
+        cpu/thermal-design-power: 100
+      pipeline:
+        observe: null
+        regroup: null
+        compute:
+          - double-a-value
+      inputs:
+        - timestamp: 2023-07-06T00:00
+          duration: 1
+          cpu/utilization: 20
+        - timestamp: 2023-07-06T00:01
+          duration: 1
+          cpu/utilization: 80
+      outputs:
+        - timestamp: 2023-07-06T00:00
+          duration: 1
+          cpu/utilization: 20
+          cpu/thermal-design-power: 100
+          cpu-utilization-doubled: 40
+        - timestamp: 2023-07-06T00:01
+          duration: 1
+          cpu/utilization: 80
+          cpu/thermal-design-power: 100
+          cpu-utilization-doubled: 160
